@@ -1,4 +1,5 @@
 import Wallet from "../../models/walletModel.js";
+import { isFilled } from "../../utils/verifyFields.js";
 
 export const getWallet = async (req, res) => {
   const userId = req.params.id; // Extract userId from request parameters

@@ -16,21 +16,30 @@ export const updateStation = async (req, res) => {
     }
 
     // Check if the new station code already exists
-    const stationCodeExist = await Station.findOne({
-      code,
-      _id: { $ne: req.params.id },
-    });
-    if (stationCodeExist) {
-      return res.status(400).json({ message: "Station code already exists" });
+    if (code) {
+      // Check if code is provided in the request body
+      const stationCodeExist = await Station.findOne({
+        code,
+        _id: { $ne: req.params.id },
+      });
+      if (stationCodeExist) {
+        return res.status(400).json({ message: "Station code already exists" });
+      }
     }
+
+    // Construct an update object with only the fields that are provided
+    const updateFields = {};
+    if (name) updateFields.name = name;
+    if (code) updateFields.code = code;
+    if (location) updateFields.location = location;
 
     // Update the station with the provided details
     const updatedStation = await Station.findByIdAndUpdate(
-      req.params.id, // Find the station by ID
-      req.body, // Update with the request body data
+      req.params.id,
+      { $set: updateFields },
       {
-        new: true, // Return the updated document
-        runValidators: true, // Run schema validators on update
+        new: true,
+        runValidators: true,
       }
     );
 

@@ -15,7 +15,7 @@ export const purchaseTicket = async (req, res) => {
       fare,
     });
     if (isExist.exist === false) {
-      return res.status(400).json({ message: validity.message });
+      return res.status(400).json({ message: isExist.message });
     }
 
     // isFilled the fare
