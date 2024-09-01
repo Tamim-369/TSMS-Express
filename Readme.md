@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Train Service Management System API is a backend application built using Node.js, Express, and MongoDB. It allows users to manage train services, stations, user wallets, and ticketing. Users can register, log in, manage their tickets, and receive reminders for upcoming train departures.
+TSMS-Express is a backend application built using Node.js, Express, and MongoDB. It allows users to manage train services, stations, user wallets, and ticketing. Users can register, log in, manage their tickets, and receive reminders for upcoming train departures.
 
 ## Installation
 
