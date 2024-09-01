@@ -3,8 +3,8 @@ import Wallet from "../../models/walletModel.js";
 export const getWallet = async (req, res) => {
   const userId = req.params.id; // Extract userId from request parameters
 
-  // checkExistence the userId parameter
-  const isExist = checkExistence({ userId });
+  // isFilled the userId parameter
+  const isExist = isFilled({ userId });
   if (isExist.exist === false) {
     return res.status(400).json({ message: validity.message }); // Return 400 if validation fails
   }

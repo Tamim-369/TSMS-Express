@@ -1,14 +1,17 @@
 import User from "../../models/userModel.js";
 import Wallet from "../../models/walletModel.js";
-import { checkExistence } from "../../utils/verifyFields.js";
+import { isFilled } from "../../utils/verifyFields.js";
 
 export const addFunds = async (req, res) => {
   const { userId, amount } = req.body;
 
-  // checkExistence input
-  const isExist = checkExistence({ userId, amount });
+  // isFilled input
+  const isExist = isFilled({ userId, amount });
   if (isExist.exist === false) {
     return res.status(400).json({ message: validity.message });
+  }
+  if (isNaN(amount)) {
+    return res.status(400).json({ message: "Amount must be a number" });
   }
 
   // Check if user exists

@@ -1,26 +1,26 @@
 import User from "../../models/userModel.js";
 import jwt from "jsonwebtoken";
-import { checkExistence } from "../../utils/verifyFields.js";
+import { isFilled } from "../../utils/verifyFields.js";
 import bcrypt from "bcrypt";
 
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body; // Extract email and password from request body
 
-    // checkExistence the input fields
-    const isExist = checkExistence({ email, password });
+    // isFilled the input fields
+    const isExist = isFilled({ email, password });
     if (isExist.exist === false) {
       return res.status(400).json({ message: validity.message }); // Return 400 if validation fails
     }
 
-    // checkExistence email length
+    // isFilled email length
     if (email.length < 8) {
       return res
         .status(400)
         .json({ message: "Email must be greater than 8 characters" });
     }
 
-    // checkExistence password length
+    // isFilled password length
     if (password.length < 8 || password.length > 200) {
       return res.status(400).json({
         message: "Password must be greater than 8 and less than 200 characters",
@@ -47,9 +47,9 @@ export const login = async (req, res) => {
       expiresIn: "1h",
     }); // Added expiration time for security
 
-    // checkExistence the generated token
+    // isFilled the generated token
 
-    if (!checkExistence([token])) {
+    if (!isFilled([token])) {
       return res.status(401).json({
         message:
           "There was a problem while creating the token. Please try again later",

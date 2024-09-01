@@ -1,4 +1,4 @@
-export function checkExistence(fields) {
+export function isFilled(fields) {
   // checking for empty or undefined fields and returning an error message if found
   for (const [key, value] of Object.entries(fields)) {
     if (!value || value.trim() === "") {

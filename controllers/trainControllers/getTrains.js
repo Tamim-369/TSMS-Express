@@ -1,5 +1,5 @@
 import Train from "../../models/trainModel.js";
-import { checkExistence } from "../../utils/verifyFields.js";
+import { isFilled } from "../../utils/verifyFields.js";
 
 export const getTrains = async (req, res) => {
   try {

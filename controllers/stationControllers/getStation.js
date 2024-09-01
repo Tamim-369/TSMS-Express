@@ -1,12 +1,12 @@
 import Station from "../../models/stationModel.js";
 
-import { checkExistence } from "../../utils/verifyFields.js";
+import { isFilled } from "../../utils/verifyFields.js";
 
 export const getStation = async (req, res) => {
   const { id } = req.params; // Extract the station ID from the request parameters
 
-  // checkExistence the ID field
-  const isExist = checkExistence({ id });
+  // isFilled the ID field
+  const isExist = isFilled({ id });
   if (isExist.exist === false) {
     // If validation fails, return a 400 error with the validation message
     return res.status(400).json({ message: validity.message });
