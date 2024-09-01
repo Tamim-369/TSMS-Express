@@ -1,7 +1,7 @@
 import Ticket from "../../models/ticketModel.js";
 import User from "../../models/userModel.js";
 import { sendEmail } from "./emailService.js";
-import { validate } from "../../utils/verifyFields.js";
+import { checkExistence } from "../../utils/verifyFields.js";
 
 export const generateReports = async () => {
   try {
@@ -23,8 +23,8 @@ export const generateReports = async () => {
       Total Users: ${totalUsers}
     `;
 
-    // Validate the report
-    if (validate([report])) {
+    // checkExistence the report
+    if (checkExistence([report])) {
       // Send the report via email
       await sendEmail(process.env.EMAIL_USER, "Weekly Report", report);
       console.log("Weekly report sent successfully.");

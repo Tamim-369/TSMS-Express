@@ -1,13 +1,13 @@
 import Train from "../../models/trainModel.js";
-import { validate } from "../../utils/verifyFields.js";
+import { checkExistence } from "../../utils/verifyFields.js";
 
 export const createTrain = async (req, res) => {
   try {
     const { name, number, stops } = req.body; // Destructure necessary fields from the request body
 
-    // Validate required fields
-    const validity = validate({ name, number, stops });
-    if (validity.valid === false) {
+    // checkExistence required fields
+    const isExist = checkExistence({ name, number, stops });
+    if (isExist.exist === false) {
       return res.status(400).json({ message: validity.message });
     }
 

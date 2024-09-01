@@ -1,12 +1,12 @@
 import Train from "../../models/trainModel.js";
-import { validate } from "../../utils/verifyFields.js";
+import { checkExistence } from "../../utils/verifyFields.js";
 
 export const getTrain = async (req, res) => {
   const { id } = req.params; // Extract the train ID from the request parameters
 
-  // Validate the ID to ensure it is not empty and is in a valid format
-  const validity = validate({ id });
-  if (validity.valid === false) {
+  // checkExistence the ID to ensure it is not empty and is in a valid format
+  const isExist = checkExistence({ id });
+  if (isExist.exist === false) {
     return res.status(400).json({ message: validity.message });
   }
 

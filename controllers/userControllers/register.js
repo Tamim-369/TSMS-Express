@@ -1,33 +1,33 @@
 import User from "../../models/userModel.js";
 import jwt from "jsonwebtoken";
-import { validate } from "../../utils/verifyFields.js";
+import { checkExistence } from "../../utils/verifyFields.js";
 import bcrypt from "bcrypt";
 
 export const register = async (req, res) => {
   try {
     const { name, email, password } = req.body; // Extract name, email, and password from request body
 
-    // Validate the input fields
-    const validity = validate({ name, email, password });
-    if (validity.valid === false) {
+    // checkExistence the input fields
+    const isExist = checkExistence({ name, email, password });
+    if (isExist.exist === false) {
       return res.status(400).json({ message: validity.message }); // Return 400 if validation fails
     }
 
-    // Validate name length
+    // checkExistence name length
     if (name.length < 4 || name.length > 200) {
       return res.status(400).json({
         message: "Name must be greater than 4 and less than 200 characters",
       });
     }
 
-    // Validate password length
+    // checkExistence password length
     if (password.length < 8 || password.length > 200) {
       return res.status(400).json({
         message: "Password must be greater than 8 and less than 200 characters",
       });
     }
 
-    // Validate email length
+    // checkExistence email length
     if (email.length < 8) {
       return res.status(400).json({
         message: "Email must be greater than 8 characters",

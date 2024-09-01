@@ -1,13 +1,13 @@
 import User from "../../models/userModel.js";
 import Wallet from "../../models/walletModel.js";
-import { validate } from "../../utils/verifyFields.js";
+import { checkExistence } from "../../utils/verifyFields.js";
 
 export const addFunds = async (req, res) => {
   const { userId, amount } = req.body;
 
-  // Validate input
-  const validity = validate({ userId, amount });
-  if (validity.valid === false) {
+  // checkExistence input
+  const isExist = checkExistence({ userId, amount });
+  if (isExist.exist === false) {
     return res.status(400).json({ message: validity.message });
   }
 

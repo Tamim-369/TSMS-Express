@@ -1,14 +1,14 @@
 import Station from "../../models/stationModel.js";
-import { validate } from "../../utils/verifyFields.js";
+import { checkExistence } from "../../utils/verifyFields.js";
 
 export const createStation = async (req, res) => {
   try {
     // Destructure name, code, and location from the request body
     const { name, code, location } = req.body;
 
-    // Validate the input fields
-    const validity = validate({ name, code, location });
-    if (validity.valid === false) {
+    // checkExistence the input fields
+    const isExist = checkExistence({ name, code, location });
+    if (isExist.exist === false) {
       // If validation fails, return a 400 error with the validation message
       return res.status(400).json({ message: validity.message });
     }

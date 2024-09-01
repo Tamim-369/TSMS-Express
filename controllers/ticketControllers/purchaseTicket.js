@@ -1,24 +1,24 @@
 import Ticket from "../../models/ticketModel.js";
 import Wallet from "../../models/walletModel.js";
-import { validate } from "../../utils/verifyFields.js";
+import { checkExistence } from "../../utils/verifyFields.js";
 
 export const purchaseTicket = async (req, res) => {
   try {
     const { userId, trainId, fromStation, toStation, fare } = req.body; // Destructure necessary fields from the request body
 
-    // Validate required fields
-    const validity = validate({
+    // checkExistence required fields
+    const isExist = checkExistence({
       userId,
       trainId,
       fromStation,
       toStation,
       fare,
     });
-    if (validity.valid === false) {
+    if (isExist.exist === false) {
       return res.status(400).json({ message: validity.message });
     }
 
-    // Validate the fare
+    // checkExistence the fare
     if (isNaN(fare)) {
       return res.status(400).json({ message: "Fare must be a number" });
     }
