@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 
 export const protect = (req, res, next) => {
   let token;
+  // if there is token continue
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
@@ -32,7 +33,9 @@ export const protect = (req, res, next) => {
       console.error(error.message);
       return res.status(401).json({ message: "Not authorized" });
     }
-  } else {
+  }
+  // otherwise return not authorized
+  else {
     return res.status(401).json({ message: "Not authorized" });
   }
 };

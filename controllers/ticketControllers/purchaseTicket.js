@@ -38,14 +38,19 @@ export const purchaseTicket = async (req, res) => {
     if (wallet.balance < fareNumber) {
       return res.status(400).json({ message: "Insufficient funds" });
     }
+    // checking if train exist
     const existsTrain = await Train.findOne({ train: trainId });
     if (!existsTrain) {
       return res.status(404).json({ message: "Train not found" });
     }
+    // checking if fromstation exist
+
     const existFromStation = await Station.findOne({ from: fromStation });
     if (!existFromStation) {
       return res.status(404).json({ message: "From station not found" });
     }
+    // checking if tostation exist
+
     const existToStation = await Station.findOne({ to: toStation });
     if (!existToStation) {
       return res.status(404).json({ message: "To station not found" });
