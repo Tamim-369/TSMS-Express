@@ -32,5 +32,7 @@ export const protect = (req, res, next) => {
       console.error(error.message);
       return res.status(401).json({ message: "Not authorized" });
     }
+  } else {
+    return res.status(401).json({ message: "Not authorized" });
   }
 };
