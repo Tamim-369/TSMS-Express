@@ -1,7 +1,8 @@
 import Ticket from "../../models/ticketModel.js";
 import Wallet from "../../models/walletModel.js";
 import { isFilled } from "../../utils/verifyFields.js";
-
+import Station from "../../models/stationModel.js";
+import Train from "../../models/trainModel.js";
 export const purchaseTicket = async (req, res) => {
   try {
     const { userId, trainId, fromStation, toStation, fare } = req.body; // Destructure necessary fields from the request body
@@ -37,7 +38,18 @@ export const purchaseTicket = async (req, res) => {
     if (wallet.balance < fareNumber) {
       return res.status(400).json({ message: "Insufficient funds" });
     }
-
+    const existsTrain = await Train.findOne({ train: trainId });
+    if (!existsTrain) {
+      return res.status(404).json({ message: "Train not found" });
+    }
+    const existFromStation = await Station.findOne({ from: fromStation });
+    if (!existFromStation) {
+      return res.status(404).json({ message: "From station not found" });
+    }
+    const existToStation = await Station.findOne({ to: toStation });
+    if (!existToStation) {
+      return res.status(404).json({ message: "To station not found" });
+    }
     // Create a new ticket with the provided details
     const ticket = new Ticket({
       user: userId,
